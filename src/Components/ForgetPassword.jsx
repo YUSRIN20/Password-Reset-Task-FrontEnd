@@ -12,7 +12,8 @@ const ForgetPassword = () => {
         console.log("Forget Email payloads",email);
         const payloads = {email}
         try {
-            const res  = await axios.post('http://localhost:4005/api/user/forgotpassword', payloads);
+            // const res  = await axios.post('http://localhost:4005/api/user/forgotpassword', payloads);
+            const res  = await axios.post('https://password-reset-task-backend.onrender.com/forgotpassword', payloads);
             setResponseMsg(res.data.message);
         } catch (error) {
             console.log(error)

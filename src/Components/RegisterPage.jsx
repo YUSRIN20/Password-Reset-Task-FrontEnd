@@ -15,7 +15,8 @@ const RegisterPage = () => {
         console.log("Register Api Payloads", username, password, email);
         const payloads = { username, password, email };
         try {
-            const res = await axios.post('http://localhost:4005/api/user/register', payloads);
+            // const res = await axios.post('http://localhost:4005/api/user/register', payloads);
+            const res = await axios.post('https://password-reset-task-backend.onrender.com/api/user/register', payloads);
             setResponseMsg(res.data.message);
             toast.success(res.data.message)
         } catch (err) {
