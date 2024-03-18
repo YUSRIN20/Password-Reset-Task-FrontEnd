@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const ForgetPassword = () => {
     const [email,setEmail]  = useState('')
@@ -12,12 +13,15 @@ const ForgetPassword = () => {
         console.log("Forget Email payloads",email);
         const payloads = {email}
         try {
-            // const res  = await axios.post('http://localhost:4005/api/user/forgotpassword', payloads);
-            const res  = await axios.post('https://password-reset-task-backend.onrender.com/forgotpassword', payloads);
+            const res  = await axios.post('http://localhost:4005/api/user/forgotpassword', payloads);
+            // const res  = await axios.post('https://password-reset-task-backend.onrender.com/forgotpassword', payloads);
             setResponseMsg(res.data.message);
+            toast.success(res.data.message)
+            
         } catch (error) {
             console.log(error)
             setResponseMsg(error.response.data.message);
+            toast.error(error.response.data.message)
         }
     }
 
@@ -39,7 +43,7 @@ const ForgetPassword = () => {
 
                 </div>
             </form>
-            <h1>{responseMsg}</h1>
+            <ToastContainer /> {/* Toast container */}
         </div>
     );
 };

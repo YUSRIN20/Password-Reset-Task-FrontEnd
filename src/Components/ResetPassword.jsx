@@ -3,6 +3,7 @@ import * as Yup from 'yup'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import {useLocation, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const ResetPassword = () => {
     const navigate = useNavigate();
@@ -15,8 +16,8 @@ const ResetPassword = () => {
 
     const validateToken = async () => {
         try {
-            // let res = await axios.get('http://localhost:4005/api/user/allusers');
-            let res = await axios.get('https://password-reset-task-backend.onrender.com/api/user/allusers');
+            let res = await axios.get('http://localhost:4005/api/user/allusers');
+            // let res = await axios.get('https://password-reset-task-backend.onrender.com/api/user/allusers');
             if (res.data && res.data.users) {
                 const reqUser = res.data.find((user) => user.email === email);
                 if (reqUser) {
@@ -45,11 +46,15 @@ const ResetPassword = () => {
     const onSubmit = async (values) => {
         try {
             const res = await axios.put('http://localhost:4005/api/user/resetpassword',{...values,email});
+            // const res = await axios.put('https://password-reset-task-backend.onrender.com/api/user/resetpassword',{...values,email});
             setResponseMsg(res.data.message);
+            toast.success(res.data.message)
         } catch (error) {
             console.log(error);
             setResponseMsg(error.response.data.message);
+            toast.error(error.response.data.message)
         }
+        navigate('/login')
     };
     const formik = useFormik({
         initialValues,
@@ -100,7 +105,7 @@ const ResetPassword = () => {
                     </button>
                 </div>
             </form>
-            <h1>{responseMsg}</h1>
+         <ToastContainer /> {/* Toast container */}
         </div>
     );
 };
