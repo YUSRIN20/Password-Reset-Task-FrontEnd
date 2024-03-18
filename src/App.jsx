@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LoginPage from './Components/LoginPage';
 import ForgetPassword from './Components/ForgetPassword';
 import ResetPassword from './Components/ResetPassword';
+import HomePage from './Components/HomePage';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path='/login' element={<LoginPage />}/>
         <Route path ='/forgot' element={<ForgetPassword />}/>
         <Route path ='/resetpassword' element={<ResetPassword />}/>
+        <Route path ='/home' element={<HomePage />}/>
       </Routes>
       
       </BrowserRouter>
