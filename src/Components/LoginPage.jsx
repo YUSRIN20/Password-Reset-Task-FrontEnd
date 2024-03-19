@@ -6,8 +6,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const LoginPage = () => {
+import './Style/Register&LoginForm.css'
+const LoginPage = ({SetUserName}) => {
   const [responseMsg, setResponseMsg] = useState('');
   const navigate = useNavigate();
 
@@ -23,6 +23,7 @@ const LoginPage = () => {
     try {
       const res = await axios.post('http://localhost:4005/api/user/login', values);
       setResponseMsg(res.data.message);
+      SetUserName(res.data.data.username);
       navigate('/home', { state: { successMessage: res.data.message } }); // Pass success message via URL query parameter
     } catch (error) {
       setResponseMsg(error.response.data.message);
@@ -35,29 +36,68 @@ const LoginPage = () => {
     validationSchema,
     onSubmit
   });
-
+  const [signUpMode, setSignUpMode] = useState(false)
+  const toggleMode = () => {
+    setSignUpMode(prevMode => !prevMode);
+    navigate('/')
+  };
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={formik.handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-          <input type="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter your email" value={formik.values.email} onChange={formik.handleChange} />
-          <span className="text-danger">{formik.errors.email}</span>
-          <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+    <div class={`container ${signUpMode ? 'sign-up-mode' : ''}`}>
+      <div class="forms-container">
+        <div class="signin-signup">
+          <form onSubmit={formik.handleSubmit} class="sign-in-form">
+            <h2 class="title">Sign in</h2>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter your email" value={formik.values.email} onChange={formik.handleChange} />
+              <div className='errors'>
+                <span className="text-danger">{formik.errors.email}</span>
+              </div>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" className="form-control" id="password" placeholder="Enter your Password" value={formik.values.password} onChange={formik.handleChange} />
+              <div className='errors'>
+                <span className="text-danger">{formik.errors.password}</span>
+              </div>
+            </div>
+            <button type="submit" className="btn solid">Login</button>
+            <div>
+              <Link to="/forgot" className='text-danger'>Forgot Password?</Link>
+            </div>
+            <p class="social-text">Or Sign in with social platforms</p>
+            <div class="social-media">
+              <a href="#" class="social-icon">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-google"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </form>
         </div>
-        <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-          <input type="password" className="form-control" id="password" value={formik.values.password} onChange={formik.handleChange} />
-          <span className="text-danger">{formik.errors.password}</span>
-        </div>
-        <button type="submit" className="btn btn-primary">Login</button>
-      </form>
-      <h3>{responseMsg}</h3>
-      <div className='d-flex justify-content-evenly' >
-        <Link to="/">Register</Link>
-        <Link to="/forgot">Forgot Password</Link>
       </div>
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>New here ?</h3>
+            <p>
+            Create an account to access exclusive features and content.
+            </p>
+            <button class="btn transparent" id="sign-up-btn" onClick={toggleMode}>
+              Sign up
+            </button>
+          </div>
+          <img src="/log.svg" class="image" alt="" />
+        </div>
+      </div>
+
     </div>
   );
 };

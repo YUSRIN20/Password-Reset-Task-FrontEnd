@@ -3,8 +3,7 @@ import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './Style/HomePage.css'
-
-const HomePage = () => {
+const HomePage = ({username}) => {
     const location = useLocation();
     const navigate = useNavigate()
 
@@ -22,7 +21,7 @@ const HomePage = () => {
                 <div class="card" style={{width:"50rem"}}>
                     {/* <img src="..." class="card-img-top" alt="..."> */}
                     <div class="card-body">
-                        <h1 class="card-title text-center">Hello!</h1>
+                        <h1 class="card-title text-center">Hello {username} !</h1>
                         <p class="card-text text-center">Welcome to Password Reset Application</p>
                         <div className='d-flex justify-content-center'>
 

@@ -2,16 +2,16 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import {useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-
+import './Style/Register&LoginForm.css'
 const ResetPassword = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const token = searchParams.get("token")
     const email = searchParams.get("email")
-    const [responseMsg,setResponseMsg] = useState('');
+    const [responseMsg, setResponseMsg] = useState('');
 
 
     const validateToken = async () => {
@@ -35,7 +35,7 @@ const ResetPassword = () => {
             console.log("Error fetching user data:", error);
         }
     };
-    
+
     const initialValues = { password: '', confirmPassword: '' };
 
     const validationSchema = Yup.object({
@@ -45,7 +45,7 @@ const ResetPassword = () => {
 
     const onSubmit = async (values) => {
         try {
-            const res = await axios.put('http://localhost:4005/api/user/resetpassword',{...values,email});
+            const res = await axios.put('http://localhost:4005/api/user/resetpassword', { ...values, email });
             // const res = await axios.put('https://password-reset-task-backend.onrender.com/api/user/resetpassword',{...values,email});
             setResponseMsg(res.data.message);
             toast.success(res.data.message)
@@ -64,48 +64,71 @@ const ResetPassword = () => {
     useEffect(() => {
         validateToken()
     }, [])
+    const toggleMode = () => {
+        navigate('/login')
+      };
     return (
-        <div>
-            <h1>Reset Password</h1>
-            <form
-                className="p-5 bg-light w-100 mx-auto rounded-3"
-                onSubmit={formik.handleSubmit}
-            >
-                <div className="mb-3">
-                    <label htmlFor="password" className="form-label">
-                        Enter New Password
-                    </label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        id="password"
-                        placeholder="Enter New password"
-                        value={formik.values.password}
-                        onChange={formik.handleChange}
-                    />
-                    <span className="text-danger">{formik.errors.password}</span>
+        <div className='container'>
+            <div class='forms-container'>
+                <div class="signin-signup">
+
+                    <form
+                        class="sign-in-form"
+                        onSubmit={formik.handleSubmit}
+                    >
+                        <h2 class="title">Reset Password</h2>
+                        <div className="input-field">
+                            <i class="fas fa-lock"></i>
+                            <input
+                                type="password"
+                                className="form-control"
+                                id="password"
+                                placeholder="Enter New password"
+                                value={formik.values.password}
+                                onChange={formik.handleChange}
+                            />
+                            <div className='errors'>
+
+                                <span className="text-danger">{formik.errors.password}</span>
+                            </div>
+                        </div>
+                        <div className="input-field">
+                            <i class="fas fa-lock"></i>
+                            <input
+                                type="password"
+                                className="form-control"
+                                id="confirmPassword"
+                                placeholder="Confirm password"
+                                value={formik.values.confirmPassword}
+                                onChange={formik.handleChange}
+                            />
+                            <div className='errors'>
+
+                                <span className="text-danger">{formik.errors.confirmPassword}</span>
+                            </div>
+                        </div>
+                        <button type="submit" className="btn-success btn">
+                            Set Password
+                        </button>
+                    </form>
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="confirmPassword" className="form-label">
-                        Confirm Password
-                    </label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        id="confirmPassword"
-                        placeholder="Confirm password"
-                        value={formik.values.confirmPassword}
-                        onChange={formik.handleChange}
-                    />
-                    <span className="text-danger">{formik.errors.confirmPassword}</span>
+                <div class="panels-container">
+                    <div class="panel left-panel">
+                        <div class="content">
+                            <h3>Set Password</h3>
+                            <p>
+                                Set a new password for your account. Choose a strong and unique password to ensure the security of your account.
+                            </p>
+                            <button class="btn transparent" id="sign-up-btn" onClick={toggleMode}>
+                              Sign in
+                            </button>
+                        </div>
+                        <img src="/reset.svg" class="image" alt="" />
+                    </div>
                 </div>
-                <div className="d-grid mt-4">
-                    <button type="submit" className="btn-success btn">
-                        Set Password
-                    </button>
-                </div>
-            </form>
-         <ToastContainer /> {/* Toast container */}
+
+            </div>
+            <ToastContainer /> {/* Toast container */}
         </div>
     );
 };
