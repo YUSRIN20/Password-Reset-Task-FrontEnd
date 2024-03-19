@@ -17,8 +17,8 @@ const ForgetPassword = () => {
 
     const onSubmit = async (values) => {
         try {
-            const res = await axios.post('http://localhost:4005/api/user/forgotpassword', values);
-            // const res  = await axios.post('https://password-reset-task-backend.onrender.com/forgotpassword', payloads);
+            // const res = await axios.post('http://localhost:4005/api/user/forgotpassword', values);
+            const res  = await axios.post('https://password-reset-task-backend.onrender.com/forgotpassword', payloads);
             setResponseMsg(res.data.message);
             toast.success(res.data.message)
             setTimeout(() => {
