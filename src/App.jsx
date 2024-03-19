@@ -5,14 +5,13 @@ import LoginPage from './Components/LoginPage';
 import ForgetPassword from './Components/ForgetPassword';
 import ResetPassword from './Components/ResetPassword';
 import HomePage from './Components/HomePage';
-
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   return (
     <div>
-      <h1>App Component</h1>
       <BrowserRouter>
       <Routes>
-
         <Route path='/' element={<RegisterPage />} />
         <Route path='/login' element={<LoginPage />}/>
         <Route path ='/forgot' element={<ForgetPassword />}/>
@@ -21,6 +20,7 @@ const App = () => {
       </Routes>
       
       </BrowserRouter>
+      <ToastContainer />
     </div>
   );
 };
