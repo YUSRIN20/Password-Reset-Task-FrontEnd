@@ -25,7 +25,7 @@ const RegisterPage = () => {
         try {
             // If user doesn't exist, proceed with registration
             // const registerRes = await axios.post('http://localhost:4005/api/user/register', values);
-            const registerRes = await axios.post('https://password-reset-task-backend.onrender.com/api/user/register', values);
+            const registerRes = await axios.post('https://password-reset-task-backend.onrender.com/api/user/register',values);
             setResponseMsg(registerRes.data.message);
             toast.success(registerRes.data.message);
             setTimeout(() => {

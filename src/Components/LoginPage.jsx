@@ -22,7 +22,7 @@ const LoginPage = ({SetUserName}) => {
   const onSubmit = async (values) => {
     try {
       // const res = await axios.post('http://localhost:4005/api/user/login', values);
-      const res = await axios.post('https://password-reset-task-backend.onrender.com/api/user/login', values);
+      const res = await axios.post('https://password-reset-task-backend.onrender.com/api/user/login',values);
       setResponseMsg(res.data.message);
       SetUserName(res.data.data.username);
       navigate('/home', { state: { successMessage: res.data.message } }); // Pass success message via URL query parameter
