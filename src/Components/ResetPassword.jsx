@@ -45,8 +45,8 @@ const ResetPassword = () => {
 
     const onSubmit = async (values) => {
         try {
-            const res = await axios.put('http://localhost:4005/api/user/resetpassword', { ...values, email });
-            // const res = await axios.put('https://password-reset-task-backend.onrender.com/api/user/resetpassword',{...values,email});
+            // const res = await axios.put('http://localhost:4005/api/user/resetpassword', { ...values, email });
+            const res = await axios.put('https://password-reset-task-backend.onrender.com/api/user/resetpassword',{...values,email});
             setResponseMsg(res.data.message);
             toast.success(res.data.message)
         } catch (error) {
