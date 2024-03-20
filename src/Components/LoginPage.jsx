@@ -26,6 +26,9 @@ const LoginPage = ({SetUserName}) => {
       setResponseMsg(res.data.message);
       SetUserName(res.data.data.username);
       navigate('/home', { state: { successMessage: res.data.message } }); // Pass success message via URL query parameter
+      if (res.status(401)){
+        toast.error(res.data.message)
+      }
     } catch (error) {
       setResponseMsg(error.response.data.message);
       toast.error(error.response.data.message);
