@@ -10,11 +10,11 @@ const HomePage = ({username}) => {
     const handleSubmit = () => {
         navigate('/login')
     }
-    useEffect(() => {
-        if (location.state && location.state.successMessage) {
-            toast.success(location.state.successMessage);
-        }
-    }, [location]);
+    // useEffect(() => {
+    //     if (location.state && location.state.successMessage) {
+    //         toast.success(location.state.successMessage);
+    //     }
+    // }, [location]);
 
     return (
             <div className=' box-container d-flex justify-content-center'>

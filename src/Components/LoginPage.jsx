@@ -25,10 +25,14 @@ const LoginPage = ({SetUserName}) => {
       const res = await axios.post('https://password-reset-task-backend.onrender.com/api/user/login',values);
       setResponseMsg(res.data.message);
       SetUserName(res.data.data.username);
-      navigate('/home', { state: { successMessage: res.data.message } }); // Pass success message via URL query parameter
-      if (res.status(401)){
-        toast.error(res.data.message)
-      }
+      toast.success(res.data.message)
+      setTimeout(() => {
+        navigate('/home')
+      }, 500);
+      // navigate('/home', { state: { successMessage: res.data.message } }); // Pass success message via URL query parameter
+      // if (res.status(401)){
+      //   toast.error(res.data.message)
+      // }
     } catch (error) {
       setResponseMsg(error.response.data.message);
       toast.error(error.response.data.message);
