@@ -49,12 +49,12 @@ const ResetPassword = () => {
             const res = await axios.put('https://password-reset-task-backend.onrender.com/api/user/resetpassword',{...values,email});
             setResponseMsg(res.data.message);
             toast.success(res.data.message)
+            navigate('/login')
         } catch (error) {
             console.log(error);
             setResponseMsg(error.response.data.message);
             toast.error(error.response.data.message)
         }
-        navigate('/login')
     };
     const formik = useFormik({
         initialValues,
